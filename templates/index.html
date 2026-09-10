@@ -129,6 +129,14 @@
     }
     .advice b { color: #fbbf24; }
     #status { text-align: center; color: #94a3b8; padding: 40px 16px; }
+    #disclaimer {
+      text-align: center;
+      color: #64748b;
+      font-size: 12px;
+      padding: 0 16px 30px;
+    }
+    td.seller a { color: #e2e8f0; text-decoration: none; }
+    td.seller a:hover { color: #fbbf24; }
 
     @media (max-width: 600px) {
       header h1 { font-size: 26px; }
@@ -140,19 +148,21 @@
 <body>
   <header>
     <h1>Smart<span>Price</span>.AI</h1>
-    <p>Compare brands &amp; sites, find the least price, and let AI tell you when to buy.</p>
+    <p>Find the cheapest price for any phone across Amazon, Flipkart &amp; brand stores — and let AI tell you when to buy.</p>
   </header>
 
   <div class="search">
-    <input id="q" type="text" placeholder="Try: iPhone, laptop, headphones, shoes..." autofocus>
+    <input id="q" type="text" placeholder="Try: iPhone 16, Galaxy S25, Redmi Note 15, OnePlus 13..." autofocus>
     <button onclick="search()">Search</button>
   </div>
 
   <div class="chips" id="chips"></div>
 
-  <div id="status">Search any product above to get started.</div>
+  <div id="status">Search any mobile phone above to get started.</div>
 
   <div id="results"></div>
+
+  <footer id="disclaimer">Prices researched from live listings on Amazon.in, Flipkart.com &amp; brand stores — as of September 2026.</footer>
 
   <script>
     let catalog = [];
@@ -182,7 +192,7 @@
       const data = await r.json();
 
       if (!data.count) {
-        status.textContent = 'No product found for "' + q + '". Try iPhone, laptop, headphones or shoes.';
+        status.textContent = 'No phone found for "' + q + '". Try iPhone 16, Galaxy S25, Redmi Note 15 or OnePlus 13.';
         return;
       }
       status.textContent = '';
@@ -218,7 +228,7 @@
         const cls = isBest ? 'arrow down' : arrowClass(rp);
         rows +=
           '<tr class="' + (isBest ? 'best' : '') + '">' +
-          '<td class="seller">' + rp.seller + (isBest ? '<span class="badge">LOWEST</span>' : '') + '</td>' +
+          '<td class="seller"><a href="' + rp.url + '" target="_blank" rel="noopener">' + rp.seller + '</a>' + (isBest ? '<span class="badge">LOWEST</span>' : '') + '</td>' +
           '<td class="price">Rs. ' + rp.current.toLocaleString('en-IN') + '</td>' +
           '<td>Rs. ' + rp.predicted.toLocaleString('en-IN') + '</td>' +
           '<td><span class="arrow ' + arrowClass(rp) + '">' + arrowMark(arrowClass(rp)) + '</span>' +
