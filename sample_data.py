@@ -6,7 +6,7 @@ WEEKS = 14
 PRICE_AS_OF = "September 2026"
 
 # Official store home pages. E-commerce prices researched from live listings on
-# Amazon.in and Flipkart.com (augmented by 91mobiles / Smartprix price trackers).
+# Amazon.in and Flipkart.com (augmented by 91mobiles / Smartprix / Gadgets360 price trackers).
 SELLER_URLS = {
     "Apple Store": "https://www.apple.com/in",
     "Samsung Shop": "https://www.samsung.com/in",
@@ -20,13 +20,17 @@ SELLER_URLS = {
     "Oppo Store": "https://www.oppo.com/in",
     "Vivo Store": "https://shop.vivo.com/in",
     "Motorola Store": "https://www.motorola.in",
+    "Infinix Store": "https://www.infinixmobile.com",
+    "Tecno Store": "https://www.tecno-mobile.com",
+    "Lava Store": "https://www.lavamobiles.com",
+    "Itel Store": "https://www.itel.com",
     "Amazon India": "https://www.amazon.in",
     "Flipkart": "https://www.flipkart.com",
 }
 
-# (Phone name, [(seller, current price in Rs), ...]). Prices are real,
-# researched from the web in {PRICE_AS_OF}.
-PHONES = [
+# (Phone name, [(seller, current price in Rs), ...]).
+# Prices are real, researched from the web in {PRICE_AS_OF}.
+CORE_PHONES = [
     # Apple
     ("iPhone 15 (128 GB)", [("Apple Store", 69900), ("Amazon India", 59900), ("Flipkart", 58900)]),
     ("iPhone 16 (128 GB)", [("Apple Store", 79900), ("Amazon India", 69999), ("Flipkart", 74900)]),
@@ -81,9 +85,185 @@ PHONES = [
     ("Moto G85 (256 GB)", [("Motorola Store", 20999), ("Amazon India", 17999), ("Flipkart", 17840)]),
 ]
 
+# (Brand store, Phone name, current market price in Rs).
+# Prices researched from live Amazon/Flipkart listings and price trackers (Sep 2026).
+# Each phone is expanded into 3 sellers: brand store (~ list price), Amazon India and Flipkart.
+EXTRA_PHONES = [
+    # Samsung
+    ("Samsung Shop", "Samsung Galaxy S26 Ultra", 124999),
+    ("Samsung Shop", "Samsung Galaxy S26 Plus", 74999),
+    ("Samsung Shop", "Samsung Galaxy S26", 72999),
+    ("Samsung Shop", "Samsung Galaxy S25 Ultra", 93590),
+    ("Samsung Shop", "Samsung Galaxy S25 FE", 45299),
+    ("Samsung Shop", "Samsung Galaxy S24 FE", 38998),
+    ("Samsung Shop", "Samsung Galaxy Z Fold 7", 148999),
+    ("Samsung Shop", "Samsung Galaxy Z Flip 7", 89999),
+    ("Samsung Shop", "Samsung Galaxy S25 Edge", 60500),
+    ("Samsung Shop", "Samsung Galaxy A57 5G", 48629),
+    ("Samsung Shop", "Samsung Galaxy A56 5G", 33499),
+    ("Samsung Shop", "Samsung Galaxy A37 5G", 36999),
+    ("Samsung Shop", "Samsung Galaxy A36 5G", 30999),
+    ("Samsung Shop", "Samsung Galaxy A27 5G", 29990),
+    ("Samsung Shop", "Samsung Galaxy A17 5G", 20990),
+    ("Samsung Shop", "Samsung Galaxy M47 5G", 23999),
+    ("Samsung Shop", "Samsung Galaxy M56 5G", 25999),
+    ("Samsung Shop", "Samsung Galaxy M36 5G", 19999),
+    ("Samsung Shop", "Samsung Galaxy M17 5G", 16999),
+    ("Samsung Shop", "Samsung Galaxy F56 5G", 24490),
+    ("Samsung Shop", "Samsung Galaxy F36 5G", 19580),
+    ("Samsung Shop", "Samsung Galaxy F70e 5G", 13999),
+    ("Samsung Shop", "Samsung Galaxy M16 5G", 10999),
+    # Xiaomi / Redmi
+    ("Xiaomi Store", "Xiaomi 17T", 59999),
+    ("Xiaomi Store", "Xiaomi 17", 89998),
+    ("Xiaomi Store", "Xiaomi 17 Ultra", 139997),
+    ("Xiaomi Store", "Redmi Turbo 5", 37999),
+    ("Xiaomi Store", "Redmi Note 15 Pro Plus 5G", 39999),
+    ("Xiaomi Store", "Redmi Note 15 SE 5G", 21144),
+    ("Xiaomi Store", "Redmi Note 14 SE 5G", 19999),
+    ("Xiaomi Store", "Redmi 15C 5G", 16499),
+    ("Xiaomi Store", "Redmi 15A 5G", 14999),
+    ("Xiaomi Store", "Redmi 13 5G", 12499),
+    ("Xiaomi Store", "Redmi A7 Pro 5G", 13497),
+    ("Xiaomi Store", "Redmi 14C 5G", 9499),
+    # POCO
+    ("POCO Store", "POCO X8 Pro", 34999),
+    ("POCO Store", "POCO X8 Pro Max", 44999),
+    ("POCO Store", "POCO M8 5G", 20999),
+    ("POCO Store", "POCO X6 5G", 21999),
+    # realme
+    ("realme Store", "realme 16 Pro+ 5G", 46999),
+    ("realme Store", "realme 16 Pro 5G", 33999),
+    ("realme Store", "realme 16 5G", 31999),
+    ("realme Store", "realme GT 8 Pro", 72999),
+    ("realme Store", "realme GT 7", 39999),
+    ("realme Store", "realme GT 7T", 33999),
+    ("realme Store", "realme P4 Power 5G", 27999),
+    ("realme Store", "realme P4 5G", 25999),
+    ("realme Store", "realme P4x 5G", 19999),
+    ("realme Store", "realme P4R 5G", 18421),
+    ("realme Store", "realme P3", 15999),
+    ("realme Store", "realme P3 Ultra", 23990),
+    ("realme Store", "realme Narzo 100x 5G", 19368),
+    ("realme Store", "realme C100x", 14999),
+    ("realme Store", "realme 14 Pro Plus 5G", 24999),
+    # OnePlus
+    ("OnePlus Store", "OnePlus 15", 85999),
+    ("OnePlus Store", "OnePlus 15R", 54999),
+    ("OnePlus Store", "OnePlus 13s", 54999),
+    ("OnePlus Store", "OnePlus 13R", 42999),
+    ("OnePlus Store", "OnePlus Nord 6", 42999),
+    ("OnePlus Store", "OnePlus Nord 5", 33999),
+    ("OnePlus Store", "OnePlus Nord CE 6", 33999),
+    ("OnePlus Store", "OnePlus Nord CE 6 Lite", 25999),
+    ("OnePlus Store", "OnePlus Nord CE 5", 24999),
+    ("OnePlus Store", "OnePlus N6", 22999),
+    ("OnePlus Store", "OnePlus 12", 34999),
+    # Nothing
+    ("Nothing Store", "Nothing Phone 4", 80999),
+    ("Nothing Store", "Nothing Phone 4b", 34999),
+    ("Nothing Store", "Nothing Phone 4a Pro", 46959),
+    ("Nothing Store", "Nothing Phone 4a", 39999),
+    ("Nothing Store", "Nothing Phone 3", 43999),
+    ("Nothing Store", "Nothing Phone 3a Lite", 24999),
+    # iQOO
+    ("iQOO Store", "iQOO 15", 70990),
+    ("iQOO Store", "iQOO 15R", 49999),
+    ("iQOO Store", "iQOO Z11", 27999),
+    ("iQOO Store", "iQOO Z11x", 18999),
+    ("iQOO Store", "iQOO Z10R", 22999),
+    ("iQOO Store", "iQOO Z11 Lite", 17999),
+    # Vivo
+    ("Vivo Store", "Vivo X300 Pro", 109999),
+    ("Vivo Store", "Vivo X300 FE", 86999),
+    ("Vivo Store", "Vivo X300", 75999),
+    ("Vivo Store", "Vivo V70", 49999),
+    ("Vivo Store", "Vivo V70 Elite", 45999),
+    ("Vivo Store", "Vivo V70 FE", 35499),
+    ("Vivo Store", "Vivo V60", 40649),
+    ("Vivo Store", "Vivo T5 Pro", 35495),
+    ("Vivo Store", "Vivo T5x", 24399),
+    ("Vivo Store", "Vivo T5 Lite", 19999),
+    ("Vivo Store", "Vivo Y51 Pro", 30999),
+    ("Vivo Store", "Vivo Y29 5G", 15499),
+    ("Vivo Store", "Vivo Y21 5G", 18999),
+    ("Vivo Store", "Vivo Y19e", 7999),
+    # Oppo
+    ("Oppo Store", "Oppo Find X9 Ultra", 169999),
+    ("Oppo Store", "Oppo Find X9", 79999),
+    ("Oppo Store", "Oppo Find X9s", 79999),
+    ("Oppo Store", "Oppo Reno16 5G", 61999),
+    ("Oppo Store", "Oppo Reno16c 5G", 46999),
+    ("Oppo Store", "Oppo Reno15 Pro Mini", 59999),
+    ("Oppo Store", "Oppo Reno15 5G", 47999),
+    ("Oppo Store", "Oppo Reno15c", 40999),
+    ("Oppo Store", "Oppo F33 Pro 5G", 39999),
+    ("Oppo Store", "Oppo F33 5G", 31999),
+    ("Oppo Store", "Oppo F31 Pro 5G", 25999),
+    ("Oppo Store", "Oppo K14 5G", 21999),
+    ("Oppo Store", "Oppo K14x 5G", 16299),
+    ("Oppo Store", "Oppo K13 Turbo Pro", 33990),
+    ("Oppo Store", "Oppo A6 5G", 21999),
+    ("Oppo Store", "Oppo A6x 5G", 16999),
+    ("Oppo Store", "Oppo A6 Pro 5G", 32999),
+    # Motorola
+    ("Motorola Store", "Motorola Edge 60", 25999),
+    ("Motorola Store", "Motorola Edge 60 Fusion", 22999),
+    ("Motorola Store", "Motorola Edge 70", 27999),
+    ("Motorola Store", "Motorola Edge 70 Fusion", 24999),
+    ("Motorola Store", "Moto G86 Power", 17999),
+    ("Motorola Store", "Moto G67 Power", 16499),
+    ("Motorola Store", "Moto G57 Power", 16499),
+    ("Motorola Store", "Moto G35", 12499),
+    ("Motorola Store", "Moto G06 Power", 8999),
+    ("Motorola Store", "Moto Razr 60", 44999),
+    # Infinix
+    ("Infinix Store", "Infinix Note 60 Pro 5G", 33999),
+    ("Infinix Store", "Infinix GT 30 Pro", 28999),
+    ("Infinix Store", "Infinix Note Edge", 21999),
+    ("Infinix Store", "Infinix Note 50x", 13499),
+    ("Infinix Store", "Infinix Note 50s 5G+", 14999),
+    ("Infinix Store", "Infinix Hot 60i 5G", 11499),
+    ("Infinix Store", "Infinix Hot 50 5G", 9999),
+    ("Infinix Store", "Infinix Smart 10", 6799),
+    # Tecno
+    ("Tecno Store", "Tecno Phantom V Fold 2", 89999),
+    ("Tecno Store", "Tecno Phantom V Flip 2", 54999),
+    ("Tecno Store", "Tecno Camon 50 Ultra", 36999),
+    ("Tecno Store", "Tecno Pova 8", 29999),
+    ("Tecno Store", "Tecno Pova Curve 2", 25899),
+    ("Tecno Store", "Tecno Spark 50 5G", 17999),
+    ("Tecno Store", "Tecno Spark 50 4G", 14999),
+    ("Tecno Store", "Tecno Pop X 5G", 9999),
+    # Lava
+    ("Lava Store", "Lava Bold N1 5G", 9999),
+    ("Lava Store", "Lava Bold N2 Pro", 7999),
+    ("Lava Store", "Lava Bold N2 Lite", 8399),
+    # Itel
+    ("Itel Store", "Itel A95 5G", 9999),
+    ("Itel Store", "Itel Zeno 100", 8299),
+]
+
+
+def expand_extras(extra):
+    """Turn a (store, name, price) entry into 3 sellers around the researched price."""
+    store, name, price = extra
+    return (
+        name,
+        [
+            (store, _round5(price * 1.09)),
+            ("Amazon India", price),
+            ("Flipkart", _round5(price * 0.98)),
+        ],
+    )
+
+
+def _round5(n):
+    return int(round(n / 5.0) * 5)
+
 
 def _make_history(current, drift, seed):
-    """Synthesise 14 weeks of history that ends exactly at the real current price.
+    """Synthesise 14 weeks of history that ends exactly at the current price.
 
     A positive drift means the price has been rising (buy now), a negative drift
     means it has been falling (wait). Noise keeps it looking like real data.
@@ -100,7 +280,8 @@ def _make_history(current, drift, seed):
 
 def build_catalog():
     catalog = []
-    for idx, (name, sellers) in enumerate(PHONES):
+    phones = list(CORE_PHONES) + [expand_extras(e) for e in EXTRA_PHONES]
+    for idx, (name, sellers) in enumerate(phones):
         item = {"name": name, "category": "Mobile", "sellers": []}
         rng = random.Random(idx * 31 + 7)
         drifts = [-0.014, -0.009, -0.005, -0.002, 0.003, 0.006]
