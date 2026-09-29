@@ -1,6 +1,8 @@
 import random
 
 from model import predict_prices
+from phone_old_a import OLD_A
+from phone_old_b import OLD_B
 
 WEEKS = 14
 PRICE_AS_OF = "September 2026"
@@ -280,7 +282,7 @@ def _make_history(current, drift, seed):
 
 def build_catalog():
     catalog = []
-    phones = list(CORE_PHONES) + [expand_extras(e) for e in EXTRA_PHONES]
+    phones = list(CORE_PHONES) + [expand_extras(e) for e in EXTRA_PHONES + OLD_A + OLD_B]
     for idx, (name, sellers) in enumerate(phones):
         item = {"name": name, "category": "Mobile", "sellers": []}
         rng = random.Random(idx * 31 + 7)
