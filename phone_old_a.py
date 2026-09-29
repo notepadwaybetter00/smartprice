@@ -19,10 +19,8 @@ OLD_A = [
     ("Apple Store", "iPhone 16 Pro (256 GB)", 129999),
     ("Apple Store", "iPhone 16 Pro (512 GB)", 149999),
     ("Apple Store", "iPhone 16 Pro Max (512 GB)", 164999),
-    ("Apple Store", "iPhone 17 (128 GB)", 119900),
-    ("Apple Store", "iPhone 17 (256 GB)", 134900),
-    ("Apple Store", "iPhone 17 Pro (256 GB)", 144900),
-    ("Apple Store", "iPhone 17 Pro Max (256 GB)", 164900),
+    ("Apple Store", "iPhone 17 (256 GB)", 99900),
+    ("Apple Store", "iPhone 17 Pro Max (256 GB)", 149900),
     # ---------- Samsung (older flagships & budget lines) ----------
     ("Samsung Shop", "Galaxy S22 (128 GB)", 45999),
     ("Samsung Shop", "Galaxy S23 (128 GB)", 49999),

@@ -223,7 +223,7 @@ textbox(s, 7.38, 6.1, 4.95, 0.35,
 # ---------------- 08 DATASET ----------------
 s = new_slide("ripple", "center")
 header(s, EYE, "DATASET & PRICING ENGINE", 8, 2)
-kpis = [("413", "Trending smartphones", ACCENT), ("1,200+", "Store prices  (3 × per phone)", ACCENT2),
+kpis = [("426", "Trending smartphones", ACCENT), ("1,300+", "Store prices (3 × per phone)", ACCENT2),
         ("SEP 2026", "Prices as of — real researched listings", GREEN),
         ("14", "Weeks of price history per store", AMBER)]
 for i, (n, d, c) in enumerate(kpis):
@@ -251,7 +251,7 @@ layers = [
     ("2 — APPLICATION LAYER", "Flask app  •  routes  •  JSON API  (/api/search, /api/catalog)", ACCENT2),
     ("3 — BUSINESS LOGIC", "search_products  •  enrich  •  BUY NOW / WAIT verdict  •  savings", GREEN),
     ("4 — AI ENGINE", "Linear regression fit  •  2-week forecast  •  R² validation", AMBER),
-    ("5 — DATA LAYER", "Dataset  •  413 phones  •  1,200+ prices  •  seeded history", RGBColor(0xF8, 0x71, 0x71)),
+    ("5 — DATA LAYER", "Dataset  •  426 phones  •  1,300+ prices  •  seeded history", RGBColor(0xF8, 0x71, 0x71)),
 ]
 y = 1.6
 for i, (t, d, ac) in enumerate(layers):

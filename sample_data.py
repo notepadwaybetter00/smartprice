@@ -1,5 +1,6 @@
 import random
 
+from live_updates import LIVE_UPDATES
 from model import predict_prices
 from phone_old_a import OLD_A
 from phone_old_b import OLD_B
@@ -38,7 +39,7 @@ CORE_PHONES = [
     ("iPhone 16 (128 GB)", [("Apple Store", 79900), ("Amazon India", 69999), ("Flipkart", 74900)]),
     ("iPhone 16 Pro (128 GB)", [("Apple Store", 119900), ("Amazon India", 112900), ("Flipkart", 105900)]),
     ("iPhone 16 Pro Max (256 GB)", [("Apple Store", 144900), ("Amazon India", 134900), ("Flipkart", 129900)]),
-    ("iPhone 17 Pro (128 GB)", [("Apple Store", 134900), ("Amazon India", 131900), ("Flipkart", 126900)]),
+    ("iPhone 17 Pro (256 GB)", [("Apple Store", 134900), ("Amazon India", 131900), ("Flipkart", 126900)]),
     # Samsung
     ("Samsung Galaxy S25 (128 GB)", [("Samsung Shop", 79999), ("Amazon India", 69999), ("Flipkart", 65899)]),
     ("Samsung Galaxy S24 (128 GB)", [("Samsung Shop", 74999), ("Amazon India", 49999), ("Flipkart", 49999)]),
@@ -296,6 +297,15 @@ def build_catalog():
                     "history": _make_history(price, drift, seed=idx * 100 + i),
                 }
             )
+        live = LIVE_UPDATES.get(name)
+        if live is not None:
+            # Override with the verified current market price from live_updates.py:
+            # Amazon & Flipkart sit at the live price, the brand store ~5% above (list).
+            for s in item["sellers"]:
+                if s["seller"] == "Amazon India" or s["seller"] == "Flipkart":
+                    s["history"][-1] = live
+                else:
+                    s["history"][-1] = _round5(live * 1.05)
         catalog.append(item)
     return catalog
 
